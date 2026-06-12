@@ -25,7 +25,7 @@ struct GitHubTreeResponse: Codable, Sendable {
         }
     }
 
-    func swiftFileCandidates(maxFileSize: Int = 60_000, maxFiles: Int = 30) -> [Entry] {
+    func swiftFileCandidates(maxFileSize: Int = 100_000, maxFiles: Int = 50) -> [Entry] {
         tree
             .filter { $0.isSwiftFile && !$0.isLikelyIrrelevant }
             .filter { ($0.size ?? 0) <= maxFileSize }
