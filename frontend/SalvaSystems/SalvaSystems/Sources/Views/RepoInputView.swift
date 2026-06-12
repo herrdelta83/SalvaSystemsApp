@@ -66,8 +66,8 @@ struct RepoInputView: View {
     }
 
     private var rainbowIcon: some View {
-        ZStack(alignment: .bottomTrailing) {
-            // Subtle glow behind icon
+        ZStack {
+            // Subtle glow behind ring
             Circle()
                 .fill(
                     RadialGradient(
@@ -88,22 +88,15 @@ struct RepoInputView: View {
                 )
                 .frame(width: 88, height: 88)
 
-            // Icon background
+            // Dark circle + icon — centered inside the ring
             Circle()
-                .fill(Color.white.opacity(0.08))
-                .frame(width: 78, height: 78)
+                .fill(Color(white: 0.12))
+                .frame(width: 76, height: 76)
                 .overlay(
                     Image(systemName: "accessibility")
                         .font(.system(size: 36, weight: .medium))
                         .foregroundStyle(.white)
                 )
-
-            // Apple Intelligence status dot
-            Circle()
-                .fill(Color.green)
-                .frame(width: 11, height: 11)
-                .overlay(Circle().stroke(Color.black, lineWidth: 2))
-                .offset(x: 4, y: 4)
         }
     }
 
