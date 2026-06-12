@@ -18,6 +18,7 @@ struct HomeView: View {
                     .padding(.bottom, 40)
             }
         }
+        .ignoresSafeArea(edges: .top)
         .background(Color(.systemBackground))
         .navigationBarHidden(true)
     }
