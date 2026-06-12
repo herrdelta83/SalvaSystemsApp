@@ -1,0 +1,19 @@
+#!/bin/bash
+# Runs automatically after every `git pull` (git merge).
+# Regenerates AccessFlow.xcodeproj so Xcode reflects any structural changes.
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+PROJECT_DIR="$REPO_ROOT/frontend/AccessFlow"
+
+if [ ! -f "$PROJECT_DIR/project.yml" ]; then
+  exit 0
+fi
+
+if ! command -v xcodegen &>/dev/null; then
+  echo "[post-merge] XcodeGen not found. Run: brew install xcodegen"
+  exit 0
+fi
+
+echo "[post-merge] Regenerating AccessFlow.xcodeproj..."
+(cd "$PROJECT_DIR" && xcodegen generate --quiet)
+echo "[post-merge] Done — Xcode will reload automatically."
