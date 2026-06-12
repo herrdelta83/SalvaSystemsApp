@@ -258,7 +258,8 @@ struct RepoInputView: View {
     }
 
     private var analyzeButton: some View {
-        Button {
+        let isEmpty = vm.repoURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        return Button {
             urlFieldFocused = false
             Task { await vm.startEvaluation() }
         } label: {
@@ -267,24 +268,20 @@ struct RepoInputView: View {
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(
-                    Group {
-                        if vm.repoURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            AnyShapeStyle(Color.white.opacity(0.10))
-                        } else {
-                            AnyShapeStyle(
-                                LinearGradient(
+                .background {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(
+                            isEmpty
+                                ? AnyShapeStyle(Color.white.opacity(0.10))
+                                : AnyShapeStyle(LinearGradient(
                                     colors: [Color(red: 0.3, green: 0.4, blue: 1.0),
                                              Color(red: 0.6, green: 0.3, blue: 1.0)],
                                     startPoint: .leading, endPoint: .trailing
-                                )
-                            )
-                        }
-                    },
-                    in: RoundedRectangle(cornerRadius: 14)
-                )
+                                ))
+                        )
+                }
         }
-        .disabled(vm.repoURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        .disabled(isEmpty)
         .padding(.top, 4)
     }
 }
