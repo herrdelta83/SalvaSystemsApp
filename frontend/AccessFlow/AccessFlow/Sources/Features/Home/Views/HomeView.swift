@@ -75,7 +75,7 @@ struct HomeView: View {
             }
         }
         .padding(20)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
     }
 
     private let differentiators: [(String, String, String)] = [
@@ -149,7 +149,7 @@ struct HomeView: View {
                     .foregroundStyle(.tertiary)
             }
             .padding(16)
-            .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
         }
         .buttonStyle(.plain)
     }

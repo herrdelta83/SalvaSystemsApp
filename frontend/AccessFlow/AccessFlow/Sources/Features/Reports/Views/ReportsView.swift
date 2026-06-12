@@ -49,7 +49,7 @@ struct ReportsView: View {
             }
         }
         .padding(16)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
     }
 
     private func summaryPill(_ value: String, _ label: String, _ color: Color) -> some View {
@@ -76,7 +76,7 @@ struct ReportsView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
     }
 
     // MARK: - All Issues
@@ -111,7 +111,7 @@ struct ReportsView: View {
                 .font(.subheadline).fontWeight(.semibold)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
-                .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                 .foregroundStyle(.secondary)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)

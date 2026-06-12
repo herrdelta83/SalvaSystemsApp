@@ -70,7 +70,7 @@ struct IssueDetailView: View {
                         Spacer()
                     }
                     .padding(12)
-                    .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 10))
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
                 }
             }
         }
@@ -100,7 +100,7 @@ struct IssueDetailView: View {
             Spacer()
         }
         .padding(14)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
     }
 
     // MARK: - Fix Button
@@ -132,6 +132,6 @@ struct IssueDetailView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
     }
 }

@@ -52,6 +52,6 @@ struct IssueCard: View {
             }
         }
         .padding(14)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
     }
 }

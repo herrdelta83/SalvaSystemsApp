@@ -101,7 +101,7 @@ struct DashboardView: View {
                     .foregroundStyle(.green)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
             } else {
                 ForEach(report.blockingIssues) { issue in
                     Button {
@@ -128,7 +128,7 @@ struct DashboardView: View {
                         .font(.caption)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
-                        .background(.secondarySystemBackground, in: Capsule())
+                        .background(Color(.secondarySystemBackground), in: Capsule())
                 }
             }
         }
@@ -157,7 +157,7 @@ struct DashboardView: View {
                         .font(.subheadline).fontWeight(.medium)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                 }
 
                 Button {
@@ -167,7 +167,7 @@ struct DashboardView: View {
                         .font(.subheadline).fontWeight(.medium)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                 }
             }
             .buttonStyle(.plain)

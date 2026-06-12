@@ -45,7 +45,7 @@ struct RecommendationsView: View {
             Spacer()
         }
         .padding(16)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
     }
 
     // MARK: - Fix Card
@@ -120,7 +120,7 @@ struct RecommendationsView: View {
                     .padding(16)
                 }
             }
-            .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
         )
     }
 

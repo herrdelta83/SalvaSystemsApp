@@ -52,7 +52,7 @@ struct GuidedAuditView: View {
             TextEditor(text: $vm.taskDescription)
                 .frame(minHeight: 100)
                 .padding(12)
-                .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     Group {
                         if vm.taskDescription.isEmpty {
@@ -114,14 +114,14 @@ struct GuidedAuditView: View {
                 TextEditor(text: $vm.issueDescription)
                     .frame(minHeight: 90)
                     .padding(12)
-                    .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
 
                 Toggle(isOn: $vm.blocksTask) {
                     Label("This issue completely blocks the task", systemImage: "xmark.circle")
                         .font(.subheadline)
                 }
                 .padding(14)
-                .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
 
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Estimated severity").font(.subheadline).fontWeight(.medium)
@@ -195,7 +195,7 @@ struct GuidedAuditView: View {
                 Button("Back") { vm.currentStep -= 1 }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
             }
 
             if vm.currentStep < vm.totalSteps - 1 {

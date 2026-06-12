@@ -65,7 +65,7 @@ struct RegressionView: View {
             }
         }
         .padding(16)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
     }
 
     private func versionChip(_ version: String, label: String, color: Color) -> some View {

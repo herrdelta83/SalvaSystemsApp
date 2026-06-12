@@ -50,7 +50,7 @@ struct AuditImportView: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
     }
 
     // MARK: - Sample
@@ -80,7 +80,7 @@ struct AuditImportView: View {
                     Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
                 }
                 .padding(16)
-                .background(.secondarySystemBackground, in: RoundedRectangle(cornerRadius: 14))
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14))
             }
             .buttonStyle(.plain)
         }
