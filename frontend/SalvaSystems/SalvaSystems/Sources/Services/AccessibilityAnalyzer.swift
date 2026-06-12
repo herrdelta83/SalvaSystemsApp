@@ -34,7 +34,7 @@ actor AccessibilityAnalyzer {
     // MARK: - Prompt builder
 
     private func buildPrompt(for file: GitHubFile) -> String {
-        let maxContentLength = 15_000
+        let maxContentLength = 10_000
         let truncated = file.content.count > maxContentLength
         let content = String(file.content.prefix(maxContentLength))
 
