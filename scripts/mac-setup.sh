@@ -1,72 +1,64 @@
 #!/bin/bash
-# One-time setup on Mac.
-# Run from the repo root:  bash scripts/mac-setup.sh
-
+# One-time setup on Mac. Run from repo root: bash scripts/mac-setup.sh
 set -e
 
-# ── Locate brew (Apple Silicon / Intel) ──────────────────────────────────────
-if   [ -x "/opt/homebrew/bin/brew" ]; then export PATH="/opt/homebrew/bin:$PATH"
-elif [ -x "/usr/local/bin/brew"    ]; then export PATH="/usr/local/bin:$PATH"
-fi
+for p in "/opt/homebrew/bin" "/usr/local/bin"; do
+  [ -x "$p/brew" ] && export PATH="$p:$PATH" && break
+done
 
 REPO_ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
-# ── Install XcodeGen ──────────────────────────────────────────────────────────
 install_xcodegen_binary() {
   local VERSION="2.42.0"
   local INSTALL_DIR="$HOME/.local/bin"
-  echo "    Downloading XcodeGen $VERSION binary from GitHub..."
   mkdir -p "$INSTALL_DIR"
+  echo "    Downloading XcodeGen $VERSION..."
   curl -fsSL "https://github.com/yonaskolb/XcodeGen/releases/download/$VERSION/xcodegen.zip" \
     -o /tmp/xcodegen.zip
+  rm -rf /tmp/xcodegen-install
   unzip -oq /tmp/xcodegen.zip -d /tmp/xcodegen-install
-  cp /tmp/xcodegen-install/xcodegen "$INSTALL_DIR/xcodegen"
+  # binary may be at root or inside a subdirectory
+  XCODEGEN_BIN=$(find /tmp/xcodegen-install -name "xcodegen" -type f | head -1)
+  if [ -z "$XCODEGEN_BIN" ]; then
+    echo "ERROR: could not find xcodegen binary inside zip"; exit 1
+  fi
+  cp "$XCODEGEN_BIN" "$INSTALL_DIR/xcodegen"
   chmod +x "$INSTALL_DIR/xcodegen"
   export PATH="$INSTALL_DIR:$PATH"
   rm -rf /tmp/xcodegen.zip /tmp/xcodegen-install
-  echo "    XcodeGen installed at $INSTALL_DIR/xcodegen"
+  echo "    XcodeGen installed -> $INSTALL_DIR/xcodegen"
 }
 
 echo "==> Checking XcodeGen..."
+# also check ~/.local/bin from a previous partial install
+export PATH="$HOME/.local/bin:$PATH"
 if command -v xcodegen &>/dev/null; then
-  echo "    XcodeGen already available: $(xcodegen version)"
+  echo "    XcodeGen: $(xcodegen version)"
 elif command -v brew &>/dev/null; then
   echo "    Installing via Homebrew..."
   brew install xcodegen
 else
-  echo "    Homebrew not found — downloading binary directly..."
+  echo "    No Homebrew — downloading binary..."
   install_xcodegen_binary
 fi
 
-# ── Remove nested .git (orphan gitlink) ──────────────────────────────────────
 echo "==> Removing nested .git from frontend/AccessFlow..."
-if [ -d "frontend/AccessFlow/.git" ]; then
-  rm -rf "frontend/AccessFlow/.git"
-  echo "    Removed"
-else
-  echo "    Already clean"
-fi
+[ -d "frontend/AccessFlow/.git" ] && rm -rf "frontend/AccessFlow/.git" && echo "    Removed" || echo "    Already clean"
 
-# ── Generate Xcode project ────────────────────────────────────────────────────
 echo "==> Generating AccessFlow.xcodeproj from project.yml..."
 (cd frontend/AccessFlow && xcodegen generate)
-echo "    AccessFlow.xcodeproj generated with full Sources/ structure"
+echo "    Done"
 
-# ── Install post-merge hook ───────────────────────────────────────────────────
 echo "==> Installing post-merge hook..."
 cp .githooks/post-merge .git/hooks/post-merge
 chmod +x .git/hooks/post-merge
-echo "    Installed at .git/hooks/post-merge"
 
-# ── Stage everything ──────────────────────────────────────────────────────────
-echo "==> Staging AccessFlow files..."
+echo "==> Staging all AccessFlow files..."
 git add frontend/AccessFlow/
 git status --short
 
 echo ""
-echo "Done. Commit and push with:"
-echo "  git commit -m 'add AccessFlow Xcode project files and Sources scaffold'"
+echo "Commit and push with:"
+echo "  git commit -m 'add AccessFlow Xcode project and Sources scaffold'"
 echo "  git push"
-echo ""
-echo "From now on: git pull -> hook regenerates xcodeproj -> Xcode reloads."
