@@ -1,26 +1,21 @@
 #!/bin/bash
-# Runs automatically after every `git pull`.
-# Regenerates AccessFlow.xcodeproj so Xcode reflects structural changes.
+# Auto-runs after every `git pull`. Regenerates AccessFlow.xcodeproj.
 
-# Locate xcodegen (Apple Silicon: /opt/homebrew, Intel: /usr/local)
-if [ -x "/opt/homebrew/bin/xcodegen" ]; then
-  export PATH="/opt/homebrew/bin:$PATH"
-elif [ -x "/usr/local/bin/xcodegen" ]; then
-  export PATH="/usr/local/bin:$PATH"
-fi
+# Locate xcodegen (Homebrew Apple Silicon / Intel / local bin)
+for p in "/opt/homebrew/bin" "/usr/local/bin" "$HOME/.local/bin"; do
+  [ -x "$p/xcodegen" ] && export PATH="$p:$PATH" && break
+done
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 PROJECT_DIR="$REPO_ROOT/frontend/AccessFlow"
 
-if [ ! -f "$PROJECT_DIR/project.yml" ]; then
-  exit 0
-fi
+[ -f "$PROJECT_DIR/project.yml" ] || exit 0
 
 if ! command -v xcodegen &>/dev/null; then
-  echo "[post-merge] XcodeGen not found. Run: brew install xcodegen"
+  echo "[post-merge] XcodeGen not found. Run: bash scripts/mac-setup.sh"
   exit 0
 fi
 
 echo "[post-merge] Regenerating AccessFlow.xcodeproj..."
 (cd "$PROJECT_DIR" && xcodegen generate --quiet)
-echo "[post-merge] Done — Xcode will prompt to reload the project."
+echo "[post-merge] Done — Xcode will prompt to reload."
