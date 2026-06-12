@@ -1,6 +1,13 @@
 #!/bin/bash
-# Runs automatically after every `git pull` (git merge).
-# Regenerates AccessFlow.xcodeproj so Xcode reflects any structural changes.
+# Runs automatically after every `git pull`.
+# Regenerates AccessFlow.xcodeproj so Xcode reflects structural changes.
+
+# Locate xcodegen (Apple Silicon: /opt/homebrew, Intel: /usr/local)
+if [ -x "/opt/homebrew/bin/xcodegen" ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+elif [ -x "/usr/local/bin/xcodegen" ]; then
+  export PATH="/usr/local/bin:$PATH"
+fi
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 PROJECT_DIR="$REPO_ROOT/frontend/AccessFlow"
@@ -16,4 +23,4 @@ fi
 
 echo "[post-merge] Regenerating AccessFlow.xcodeproj..."
 (cd "$PROJECT_DIR" && xcodegen generate --quiet)
-echo "[post-merge] Done — Xcode will reload automatically."
+echo "[post-merge] Done — Xcode will prompt to reload the project."
