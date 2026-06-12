@@ -8,7 +8,6 @@ struct HomeView: View {
         ScrollView {
             VStack(spacing: 0) {
                 heroSection
-                    .padding(.bottom, 32)
 
                 differentiatorSection
                     .padding(.horizontal, 20)
@@ -48,8 +47,16 @@ struct HomeView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
             }
-            .padding(.vertical, 52)
+            .padding(.vertical, 80)
             .padding(.horizontal, 24)
+        }
+        .overlay(alignment: .bottom) {
+            LinearGradient(
+                colors: [.clear, Color(.systemBackground)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: 180)
         }
     }
 
