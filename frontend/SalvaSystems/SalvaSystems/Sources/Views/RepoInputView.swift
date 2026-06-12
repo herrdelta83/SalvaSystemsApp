@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RepoInputView: View {
-    var vm: EvaluationViewModel
+    @Bindable var vm: EvaluationViewModel
 
     @State private var showTokenField = false
     @FocusState private var urlFieldFocused: Bool
